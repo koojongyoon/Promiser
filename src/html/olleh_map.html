@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>올레맵 JavaScript Spatial API v3 Example: 경로탐색 렌더링</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	
+	<!-- 스타일 설정 -->
+	<style type="text/css">
+		html {height: 100%}
+		body {height: 100%; margin: 0; padding: 0}
+		#map_div {height: 100%}
+		#panel {
+		  position: absolute;
+		  top: 10px;
+		  left: 25%;
+		  z-index: 5;
+		  background-color: #fff;
+		  padding: 5px;
+		  border: 1px solid #999;
+		  text-align: center;
+		  font-family: 'Roboto','sans-serif';
+		  line-height: 30px;
+		  padding-left: 10px;
+		}
+	</style>
+
+	<!-- Daum Map API-->
+	<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=4e422d55cf123076e7860315590fb73b&libraries=services"></script>
+
+	<!-- 올레맵 자바스크립트 V3 코어 -->
+	<script type="text/javascript" src="http://api.ktgis.com:10080/v3/olleh/mapAPI.js?key=T2xsZWhNYXBBUEkwMDA0OnZUMVM0TnFWZGk="></script>
+	
+	<!-- 올레맵 자바스크립트 V3 Spatial -->
+	<script type="text/javascript" src="http://api.ktgis.com:10080/v3/olleh/mapsSpatialAPI.js?key=T2xsZWhNYXBBUEkwMDA0OnZUMVM0TnFWZGk="></script>
+
+	
+	<script type="text/javascript">
+		var map, directionsService, geocoder; 
+    
+		function init() {
+			directionsService = new olleh.maps.DirectionsService('frKMcOKXS*l9iO5g');
+
+			if (navigator.geolocation) {			    
+			    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+			    navigator.geolocation.getCurrentPosition(function(position) {
+			        var lat = position.coords.latitude, // 위도
+			            lon = position.coords.longitude; // 경도
+			        
+					map = new olleh.maps.Map('map_div', {
+						center : new olleh.maps.LatLng(lat, lon),
+						zoom : 10
+					});
+			      });
+			} else{
+				map = new olleh.maps.Map('map_div', {
+					center : new olleh.maps.LatLng(37.5666805, 126.9784147),
+					zoom : 10
+				});
+			}
+			document.getElementById("route").addEventListener("click", findRoute);
+
+			geocoder = new daum.maps.services.Geocoder();
+		}
+		
+
+		function parseLocation(from, to, route){
+			if(!from) alert("출발지 주소를 입력하세요.");
+			else if(!to) alert("도착지 주소를 입력하세요.");
+			if(from && to){
+				// 주소로 좌표를 검색합니다
+				geocoder.addr2coord(from, function(status1, result1) {
+				     if (status1 === daum.maps.services.Status.OK) {
+				        var origin = new olleh.maps.LatLng(result1.addr[0].lat, result1.addr[0].lng);			        
+				        geocoder.addr2coord(to, function(status2, result2) {
+						    if (status2 === daum.maps.services.Status.OK) {
+						        var destination = new olleh.maps.LatLng(result2.addr[0].lat, result2.addr[0].lng);
+
+					        	route(olleh.maps.UTMK.valueOf(origin), olleh.maps.UTMK.valueOf(destination));
+					    	} else{
+					    		alert("not found destination");
+					    	}
+					    });
+				    } else{
+				    	alert("not found start location");
+				    }
+				});  
+			}
+		}
+
+		function findRoute(){
+			parseLocation(document.getElementById("start").value, document.getElementById("end").value, function(originCoord, destinationCoord){
+				directionsService.route({
+						origin : originCoord, 
+						destination : destinationCoord,
+						projection : olleh.maps.DirectionsProjection.UTM_K, 
+						travelMode : eval("olleh.maps.DirectionsTravelMode." + document.getElementById("mode").value),
+						priority : olleh.maps.DirectionsDrivePriority.PRIORITY_0
+					},
+					"directionsService_callback"
+				); 
+			});
+		}
+		
+		// 경로탐색 결과 콜백 함수
+		function directionsService_callback(data){ 
+			var directionsResult = directionsService.parseRoute(data); 
+	        var directionsRenderer = new olleh.maps.DirectionsRenderer({
+	            directions : directionsResult, 
+	            map : map, 
+	            keepView : true, 
+	            offMarkers : false, 
+	            offPolylines : false        	
+	        });
+	        
+	        directionsRenderer.setMap(map); 
+		}
+		
+	</script>
+</head>
+<body onload="init()">
+	<div id="map_div"></div>
+	<div id="panel">
+        <b>Start: </b>
+        <input type="text" id="start" value="서울특별시 서초구 성촌길 67 삼성전사서울알앤디캠퍼스어린이집"/>
+        <br/>
+        <b>End: </b>
+        <input type="text" id="end" value="서울특별시 송파구 올림픽로35길 123 향군타워"/>
+        <div>
+            <strong>Mode of Travel: </strong>
+            <select id="mode">
+	            <option value="DRIVING">Driving</option>
+            </select>
+            <input type="button" id="route" value="길찾기"/>
+        </div>    
+    </div>
+</body>
+</html>

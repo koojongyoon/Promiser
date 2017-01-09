@@ -1,0 +1,63 @@
+@font-face {
+  font-family: droidsans;
+  src: url(../lib/fonts/DroidSans.ttf);
+}
+
+body { 
+    min-height: 20px;
+    height:auto;
+    overflow: auto;
+    font-family: droidsans;
+}
+
+.app-title {
+    margin-top: 18vh;
+    margin-bottom: 10vh;
+}
+
+.app-title label {
+    min-height: 28px;
+    font-size: 24px;
+    color: #01afaf;
+}
+
+.line-size {
+    min-height: 20px;
+    width: 88vw;
+    margin-left: 6vw;
+}
+
+.line-size input {
+    min-height: 20px;
+    height: 3vh;
+    border-bottom: 1px solid #dddddd;
+
+}
+
+.row {
+    min-height: 20px;
+    margin-bottom: 0vh;
+    margin-top: 6vh;
+}
+
+.btn {
+    min-height: 44px;
+    font-size: 18px;
+    width: 76vw;
+    height: 7vh;
+    background-color: #01afaf;
+    border-radius: 30px;
+    margin-top: 9vh;
+    margin-left: 12vw;
+    line-height: 44px;
+    box-shadow: 0 0 0 0;
+}
+
+.btn.disabled, .btn[disabled="disabled"]{
+    color: white !important;
+    background-color: #b2dfdb !important;
+}
+
+.btn:hover {
+    box-shadow: 0 0 0 0;
+}

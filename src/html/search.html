@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!-- saved from url=(0095)http://www.ollehmap.com/download/javascript_v3.0/samples/service/directionsrenderer-simple.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Way Knower</title>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	
+	<!-- 스타일 설정 -->
+	<style type="text/css">
+		html {height: 100%}
+		body {height: 100%; margin: 0; padding: 0}
+		#map_div {height: 100%}
+	</style>
+
+	<!-- 올레맵 자바스크립트 V3 코어 -->
+	<script type="text/javascript" src="../lib/mapAPI.js"></script>
+	<!-- 올레맵 자바스크립트 V3 Spatial -->
+	<script type="text/javascript" src="../lib/mapsSpatialAPI.js"></script>
+	<script type="text/javascript" src="../javascript/directions_service_callbacks.js"></script>
+	<script type="text/javascript">
+		var map, directionsService;
+		var priorityType;
+		// 초기화 함수
+		function init() {
+			let geolocation_callback = function(position) {
+				map = new olleh.maps.Map('map_div', {
+					center : new olleh.maps.LatLng(position.coords.latitude, position.coords.longitude),
+					zoom : 7
+				});
+
+				// sds : 37.516580, 127.100821
+				// 수원 : 37.278013, 127.034959
+				// origin : new olleh.maps.UTMK(960487, 1955309.75), 
+				// destination : new olleh.maps.UTMK(960804.5, 1956454), 
+				
+				directionsService = new olleh.maps.DirectionsService('frKMcOKXS*l9iO5g');
+				directionsService.route({
+						origin : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(37.516580, 127.100821)),
+						destination : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(37.278013, 127.034959)),
+						projection : olleh.maps.DirectionsProjection.UTM_K, 
+						travelMode : olleh.maps.DirectionsTravelMode.DRIVING,
+						priority : olleh.maps.DirectionsDrivePriority.PRIORITY_0
+					}, 
+					getCallbackString(olleh.maps.DirectionsDrivePriority.PRIORITY_0)
+				); 
+				directionsService.route({
+						origin : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(37.516580, 127.100821)),
+						destination : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(37.278013, 127.034959)),
+						projection : olleh.maps.DirectionsProjection.UTM_K, 
+						travelMode : olleh.maps.DirectionsTravelMode.DRIVING,
+						priority : olleh.maps.DirectionsDrivePriority.PRIORITY_1
+					}, 
+					getCallbackString(olleh.maps.DirectionsDrivePriority.PRIORITY_1)
+				); 
+				directionsService.route({
+						origin : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(37.516580, 127.100821)),
+						destination : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(37.278013, 127.034959)),
+						projection : olleh.maps.DirectionsProjection.UTM_K, 
+						travelMode : olleh.maps.DirectionsTravelMode.DRIVING,
+						priority : olleh.maps.DirectionsDrivePriority.PRIORITY_2
+					}, 
+					getCallbackString(olleh.maps.DirectionsDrivePriority.PRIORITY_2)
+				); 
+				directionsService.route({
+						origin : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(37.516580, 127.100821)),
+						destination : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(37.278013, 127.034959)),
+						projection : olleh.maps.DirectionsProjection.UTM_K, 
+						travelMode : olleh.maps.DirectionsTravelMode.DRIVING,
+						priority : olleh.maps.DirectionsDrivePriority.PRIORITY_3
+					}, 
+					getCallbackString(olleh.maps.DirectionsDrivePriority.PRIORITY_3)
+				); 
+			}
+			navigator.geolocation.getCurrentPosition(geolocation_callback, null, null);
+		}
+	</script>
+</head>
+<body onload="init()">
+	<div id="map_div" class="ollehmap ollehmap-event" data-id="ollehmap1481594207993" style="cursor: default;">
+</body>
+</html>

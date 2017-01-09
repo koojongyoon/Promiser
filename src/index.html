@@ -1,0 +1,40 @@
+<html>
+<head>
+    <link type="text/css" rel="stylesheet" href="lib/materialize/css/materialize.min.css" media="screen,projection"/>
+    <link rel="stylesheet" href="css/index.css">
+
+    <script src="lib/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="lib/materialize/js/materialize.min.js"></script>
+    <script type="text/javascript" src="javascript/index.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_eRuoYHmah0Wtbn6dDeID-oWwIvXneYU&libraries=places&callback=initAutocomplete"
+         async defer></script>
+    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />
+    <meta name="theme-color" content="#b2dfdb" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#b2dfdb">
+
+</head>
+<body onload="documentReady()">
+    <div class="app-title">
+        <div class="row center-align">
+            <label>WayKnower</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="line-size">
+            <input onkeyup="validateButton()" placeholder="출발지">
+        </div>
+    </div>
+    <div class="row">
+        <div class="line-size">
+            <input onkeyup="validateButton()" placeholder="도착지">
+        </div>
+    </div>
+    <div class="row">
+        <a id="search-button" class="waves-effect waves-light btn" disabled="disabled">
+            <div>경로 검색</div>
+        </a>
+    </div>
+</body>
+</html>
+
+

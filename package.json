@@ -1,0 +1,22 @@
+{
+  "name": "WayKnower",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CheolminConanShin/WayKnower.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CheolminConanShin/WayKnower/issues"
+  },
+  "homepage": "https://github.com/CheolminConanShin/WayKnower#readme",
+  "devDependencies": {
+    "jasmine": "^2.5.2"
+  }
+}
