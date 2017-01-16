@@ -14,10 +14,8 @@ var modalDialog = $("#modalDialog");
 var modalCallingDialog = $("#modalCallingDialog");
 var modalCalledDialog = $("#modalCalledDialog");
 var departure = {name: getParameterByName('departure'), longitude: getParameterByName('depLng'), latitude: getParameterByName('depLat')};
-var destination = {name: getParameterByName('destination'), longitude: getParameterByName('desLng'), latitude: getParameterByName('desLat')};
 
 document.querySelector('#departure').innerHTML = (departure.name.indexOf("대한민국") != -1 ? departure.name.substring(4) : departure.name);
-document.querySelector('#destination').innerHTML = (destination.name.indexOf("대한민국") != -1 ? destination.name.substring(4) : destination.name);
 
 var control = olleh.maps.control.Control;
 var map = new olleh.maps.Map('map_div', {
@@ -47,6 +45,7 @@ if(getParameterByName("key") != null) {
 	dbKey = generateDatabaseKey();
 }
 
+setGeolocation();
 recommendedRoute();
 modalDialog.modal();
 modalCallingDialog.modal();
@@ -82,7 +81,6 @@ function setGeolocation() {
 	};
 
 	navigator.geolocation.watchPosition(function(position) {
-
 		currentPosition = new olleh.maps.LatLng(position.coords.latitude, position.coords.longitude);
 		var boundCheckFlag = false;
 		boundList.forEach(function(bound) {
@@ -118,11 +116,7 @@ function blinkTaxiMockModal() {
 		});
 		showComponent(shareButton);
 		showComponent(currentPositionButton);
-		setGeolocation();
 	}, 	4000);
-	setTimeout(function(){
-		setGeolocation();
-	}, 	7000);
 
 
 };
@@ -162,38 +156,39 @@ function activateKakao(){
 function recommendedRoute() {
 	clearMap();
 	directionsService.route({
-		origin : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(departure.latitude, departure.longitude)),
-		destination : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(destination.latitude, destination.longitude)),
-		projection : olleh.maps.DirectionsProjection.UTM_K, 
+		origin : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(currentPosition.y, currentPosition.x)),
+		destination : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(departure.latitude, departure.longitude)),
+		projection : olleh.maps.DirectionsProjection.UTM_K,
 		travelMode : olleh.maps.DirectionsTravelMode.DRIVING,
 		priority : olleh.maps.DirectionsDrivePriority.PRIORITY_3
-	}, 
+	},
 	getCallbackString(olleh.maps.DirectionsDrivePriority.PRIORITY_3)
-	); 
-}	
+	);
+}
 
 function shortestRoute() {
 	clearMap();
 	directionsService.route({
-		origin : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(departure.latitude, departure.longitude)),
-		destination : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(destination.latitude, destination.longitude)),
-		projection : olleh.maps.DirectionsProjection.UTM_K, 
+		origin : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(currentPosition.y, currentPosition.x)),
+		destination : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(departure.latitude, departure.longitude)),
+		projection : olleh.maps.DirectionsProjection.UTM_K,
 		travelMode : olleh.maps.DirectionsTravelMode.DRIVING,
 		priority : olleh.maps.DirectionsDrivePriority.PRIORITY_0
-	}, 
+	},
 	getCallbackString(olleh.maps.DirectionsDrivePriority.PRIORITY_0)
-	); 
+	);
 }
 
 function freeRoute() {
 	clearMap();
+		console.log(currentPosition);
 	directionsService.route({
-		origin : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(departure.latitude, departure.longitude)),
-		destination : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(destination.latitude, destination.longitude)),
-		projection : olleh.maps.DirectionsProjection.UTM_K, 
+		origin : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(currentPosition.y, currentPosition.x)),
+		destination : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(departure.latitude, departure.longitude)),
+		projection : olleh.maps.DirectionsProjection.UTM_K,
 		travelMode : olleh.maps.DirectionsTravelMode.DRIVING,
 		priority : olleh.maps.DirectionsDrivePriority.PRIORITY_2
-	}, 
+	},
 	getCallbackString(olleh.maps.DirectionsDrivePriority.PRIORITY_2)
 	);
 }

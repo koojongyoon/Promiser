@@ -3,7 +3,7 @@
   src: url(../lib/fonts/DroidSans.ttf);
 }
 
-body { 
+body {
     min-height: 20px;
     height:auto;
     overflow: auto;
@@ -23,7 +23,7 @@ nav .brand-logo {
 }
 
 .location-field {
-    height: 9vh;
+    height: 5vh;
 }
 .location-field label {
     font-size: 2.5vh;
@@ -60,7 +60,7 @@ nav .brand-logo {
 }
 
 .route-field td, th {
-	padding: 0vh;	
+	padding: 0vh;
 }
 
 .button-field {
