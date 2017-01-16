@@ -38,6 +38,7 @@ var map = new olleh.maps.Map('map_div', {
 	}
 });
 
+setGeolocation();
 if(getParameterByName("key") != null) {
 	dbKey = getParameterByName("key");
 	goThisWayButton.click();
@@ -45,7 +46,6 @@ if(getParameterByName("key") != null) {
 	dbKey = generateDatabaseKey();
 }
 
-setGeolocation();
 recommendedRoute();
 modalDialog.modal();
 modalCallingDialog.modal();
