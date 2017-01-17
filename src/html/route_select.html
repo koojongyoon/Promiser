@@ -1,6 +1,5 @@
 <html>
 <head>
-    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
     <link type="text/css" rel="stylesheet" href="../lib/materialize/css/materialize.min.css" media="screen,projection"/>
     <link rel="stylesheet" href="../css/route_select.css">
     <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />
@@ -21,32 +20,13 @@
                 <label id="departure">
             </div>
         </div>
-        <!--
-        <div class="row">
-            <div class="col s12 valign-wrapper">
-                <img src="../lib/images/pin.png">
-                <label id="destination">
-            </div>
-        </div>
-      -->
     </div>
     <table class="route-field centered">
         <tbody>
-          <!--
-            <tr>
-                <td class="go-away button-field route-tab">
-                    <ul class="tabs tabs-transparent route-tab">
-                        <li class="tab route-tab"><a id="recommendedRouteBtn" class="active" onclick="recommendedRoute()">최적</a>/li>
-                        <li class="tab route-tab"><a id="shortestRouteBtn" onclick="shortestRoute()">최단</a>/li>
-                        <li class="tab route-tab"><a id="freeRouteBtn" onclick="freeRoute()">무료</a>/li>
-                    </ul>
-                </td>
-            </tr>
-          -->
             <tr>
                 <td class="map-field">
                     <div class="share-button disappear"><a id="kakao-link-btn" href="javascript:activateKakao();"><img src="../lib/images/group.png"></a></div>
-                    <div class="current-location-button disappear"><a id="current-location-btn" href="javascript:fincCurrentLocation();"><img src="../lib/images/current-location.png"></a></div>
+                    <div class="current-location-button disappear"><a id="current-location-btn" href="javascript:findCurrentLocation();"><img src="../lib/images/current-location.png"></a></div>
                     <!--
                     <div class="go-away" id="routeInfoBox">
                         <div id="routeDirectionList" class="left-align"></div>
@@ -74,12 +54,12 @@
     </div>
     <div id="modalCallingDialog" class="modal">
         <div class="modal-content  z-depth-1">
-            <p class="calling">택시 호출 중</p>
+            <p class="calling">위치 확인 중</p>
         </div>
     </div>
      <div id="modalCalledDialog" class="modal">
         <div class="modal-content z-depth-1">
-            <p class="called">예약완료<br>택시가 오고있습니다.</p>
+            <p class="called">위치 확인!<br>지인들의 위치를 확인해주세요.</p>
         </div>
     </div>
 </body>

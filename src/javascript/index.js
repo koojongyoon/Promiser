@@ -20,7 +20,6 @@ var documentReady = function() {
 	});
 }
 
-
 function initAutocomplete() {
 	var departureInput = document.querySelectorAll(".line-size input")[0];
 

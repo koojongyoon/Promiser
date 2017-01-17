@@ -1,6 +1,6 @@
 var priorityType;
 var boundList = [];
-var dbKey, marker;
+var groupKey, marker;
 var taxiCallingModal, taxiCalledModal;
 var currentPosition;
 
@@ -39,14 +39,18 @@ var map = new olleh.maps.Map('map_div', {
 });
 
 setGeolocation();
+
+setTimeout(function(){
+	recommendedRoute();
+}, 	3000);
+
 if(getParameterByName("key") != null) {
-	dbKey = getParameterByName("key");
+	groupKey = getParameterByName("key");
 	goThisWayButton.click();
 }else {
-	dbKey = generateDatabaseKey();
+	groupKey = generateDatabaseKey();
 }
 
-recommendedRoute();
 modalDialog.modal();
 modalCallingDialog.modal();
 modalCalledDialog.modal();
@@ -57,7 +61,7 @@ function loadSearchPage() {
 
 function goThisWay() {
 	blinkTaxiMockModal();
-	receiveCoordinatesByKey(dbKey, function(coordinates) {
+	receiveCoordinatesByKey(groupKey, function(coordinates) {
         if(marker != undefined){
             marker.erase();
         }
@@ -89,15 +93,10 @@ function setGeolocation() {
 			}
 		});
 
-		updateCoordinatesByKey(position.coords.latitude, position.coords.longitude, dbKey);
+		updateCoordinatesByKey(position.coords.latitude, position.coords.longitude, groupKey);
 
-		if(!boundCheckFlag) {
-			modalDialog.modal('open');
-			fincCurrentLocation();
-			window.navigator.vibrate(1000);
-		}else{
-			fincCurrentLocation();
-			console.log("잘가고 있구만!");
+		if(boundCheckFlag) {
+			findCurrentLocation();
 		}
 	}, null, options);
 }
@@ -117,8 +116,6 @@ function blinkTaxiMockModal() {
 		showComponent(shareButton);
 		showComponent(currentPositionButton);
 	}, 	4000);
-
-
 };
 
 function hideComponent(component) {
@@ -129,13 +126,14 @@ function showComponent(component) {
 	component.className = component.className.replace(" disappear", "");
 }
 
-function fincCurrentLocation() {
+function findCurrentLocation() {
 	if(currentPosition != null) {
 		map.setCenter(new olleh.maps.LatLng(currentPosition.y, currentPosition.x));
 	}
 }
 
 function activateKakao(){
+	var groupKey = getGuid();
 	Kakao.init('3b1c9bd1870f46083d79ba8115f7f304');
 	Kakao.Link.createTalkLinkButton({
 		container: '#kakao-link-btn',
@@ -146,15 +144,16 @@ function activateKakao(){
 			height: '200'
 		},
 		webButton: {
-			text: '확인하러가기',
-			//url: window.location.href + '&key=' + dbKey
-			url: 'www.naver.com'
+			text: '내 위치 입력하기',
+			url: window.location.href + '&key=' + groupKey
+			//url: 'www.naver.com'
 		}
 	});
 };
 
 function recommendedRoute() {
 	clearMap();
+	console.log(departure);
 	directionsService.route({
 		origin : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(currentPosition.y, currentPosition.x)),
 		destination : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(departure.latitude, departure.longitude)),
@@ -163,33 +162,6 @@ function recommendedRoute() {
 		priority : olleh.maps.DirectionsDrivePriority.PRIORITY_3
 	},
 	getCallbackString(olleh.maps.DirectionsDrivePriority.PRIORITY_3)
-	);
-}
-
-function shortestRoute() {
-	clearMap();
-	directionsService.route({
-		origin : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(currentPosition.y, currentPosition.x)),
-		destination : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(departure.latitude, departure.longitude)),
-		projection : olleh.maps.DirectionsProjection.UTM_K,
-		travelMode : olleh.maps.DirectionsTravelMode.DRIVING,
-		priority : olleh.maps.DirectionsDrivePriority.PRIORITY_0
-	},
-	getCallbackString(olleh.maps.DirectionsDrivePriority.PRIORITY_0)
-	);
-}
-
-function freeRoute() {
-	clearMap();
-		console.log(currentPosition);
-	directionsService.route({
-		origin : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(currentPosition.y, currentPosition.x)),
-		destination : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(departure.latitude, departure.longitude)),
-		projection : olleh.maps.DirectionsProjection.UTM_K,
-		travelMode : olleh.maps.DirectionsTravelMode.DRIVING,
-		priority : olleh.maps.DirectionsDrivePriority.PRIORITY_2
-	},
-	getCallbackString(olleh.maps.DirectionsDrivePriority.PRIORITY_2)
 	);
 }
 
@@ -214,4 +186,14 @@ function getParameterByName(name, url) {
 	if (!results) return null;
 	if (!results[2]) return '';
 	return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function getGuid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
 }

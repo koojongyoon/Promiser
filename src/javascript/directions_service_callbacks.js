@@ -4,25 +4,6 @@ var shortest_direction_result, recommended_direction_result, freeway_direction_r
 var routeDirectionListBox = document.querySelector("#routeDirectionList");
 var routeDirectionDetails = document.querySelector("#routeDirectionDetails")
 
-function shortest_path_service_callback(data) {
-	shortest_direction_result = directionsService.parseRoute(data);
-	var directionsRendererOptions = {
-		directions : shortest_direction_result, // 길찾기 결과. DirectionsService 의 parseRoute 결과
-		map : map,						// 길찾기 결과를 렌더링할 지도
-		offMarkers : true,				// 마커 표시 억제 여부. true 이면 마커를 표시하지 않음. 디폴트 false
-		polylineOptions : {				// 경로 폴리라인 스타일 옵션
-			strokeColor : SELECTED_ROUTE_COLOR,	// 경로 폴리라인 칼라. 디폴트 #ff3131
-			strokeWeight : 3	// 경로 폴리라인 두께. 디폴트 5 
-		}
-	}; 
-	var directionsRenderer = new olleh.maps.DirectionsRenderer(directionsRendererOptions);
-
-	setRouteDirectionDetails(shortest_direction_result);
-	directionsRenderer.setMap(map);
-
-	boundList = getBoundsArray(shortest_direction_result);
-}
-
 function recommended_path_service_callback(data) {
 	recommended_direction_result = directionsService.parseRoute(data);
 	var directionsRendererOptions = {
@@ -31,48 +12,23 @@ function recommended_path_service_callback(data) {
 		offMarkers : true,				// 마커 표시 억제 여부. true 이면 마커를 표시하지 않음. 디폴트 false
 		polylineOptions : {				// 경로 폴리라인 스타일 옵션
 			strokeColor : SELECTED_ROUTE_COLOR,// 경로 폴리라인 칼라. 디폴트 #ff3131
-			strokeWeight : 3			// 경로 폴리라인 두께. 디폴트 5 
+			strokeWeight : 3			// 경로 폴리라인 두께. 디폴트 5
 		},
-	}; 
+	};
 	var directionsRenderer = new olleh.maps.DirectionsRenderer(directionsRendererOptions);
-
 	setRouteDirectionDetails(recommended_direction_result);
 	directionsRenderer.setMap(map);
 
 	boundList = getBoundsArray(recommended_direction_result);
+
 	departureToDestinationMarker();
-}
-
-function freeway_path_service_callback(data) {
-	freeway_direction_result = directionsService.parseRoute(data);
-	var directionsRendererOptions = {
-		directions : freeway_direction_result, // 길찾기 결과. DirectionsService 의 parseRoute 결과
-		map : map,						// 길찾기 결과를 렌더링할 지도
-		offMarkers : true,				// 마커 표시 억제 여부. true 이면 마커를 표시하지 않음. 디폴트 false
-		polylineOptions : {				// 경로 폴리라인 스타일 옵션
-			strokeColor : SELECTED_ROUTE_COLOR,// 경로 폴리라인 칼라. 디폴트 #ff3131
-			strokeWeight : 3			// 경로 폴리라인 두께. 디폴트 5 
-		},
-	}; 
-	var directionsRenderer = new olleh.maps.DirectionsRenderer(directionsRendererOptions);
-
-	setRouteDirectionDetails(freeway_direction_result);
-	directionsRenderer.setMap(map);
-
-	boundList = getBoundsArray(freeway_direction_result);
 }
 
 function getCallbackString(priorityType) {
 	switch(priorityType) {
-		case "0" : 
-			return "shortest_path_service_callback"
-		case "1" : 
-			return "highway_path_service_callback"
-		case "2" : 
-			return "freeway_path_service_callback"
-		case "3" : 
+		case "3" :
 			return "recommended_path_service_callback"
-		default : 
+		default :
 			return "traffic_path_service_callback"
 	}
 }
@@ -87,11 +43,12 @@ function setRouteDirectionDetails(directionsResult) {
 	routeDirectionDetails.querySelector("#duration").textContent = duration;
 	routeDirectionDetails.querySelector("#distance").textContent = distance;
 	routeDirectionDetails.querySelector("#fee").textContent = fee;
+	-->
 }
 
 function getDestinationRouteArray(durationResult) {
 	var destinationArray = [];
-
+	console.log(durationResult);
 	if(durationResult.result.routes.length > 0) {
 		durationResult.result.routes.forEach(function(route) {
 			if(route.node_name != "" && route.node_name != undefined) {
@@ -99,7 +56,7 @@ function getDestinationRouteArray(durationResult) {
 			}
 		});
 	}
-	
+
 	var uniqueArray = destinationArray.filter(function(item, pos, self) {
 		return self.indexOf(item) == pos;
 	});

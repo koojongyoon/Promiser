@@ -17,7 +17,6 @@ var generateDatabaseKey = function() {
 
 var updateCoordinatesByKey = function(latitude, longitude, key) {
 	var firebaseRef = connectDatabase().ref();
-
 	var coordinates = {
 		latitude: latitude,
 		longitude: longitude
