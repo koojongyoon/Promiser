@@ -1,5 +1,5 @@
 {
-  "name": "WayKnower",
+  "name": "Promiser",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CheolminConanShin/WayKnower.git"
+    "url": "git+https://github.com/koojongyoon/Promiser.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/CheolminConanShin/WayKnower/issues"
+    "url": "https://github.com/koojongyoon/Promiser/issues"
   },
-  "homepage": "https://github.com/CheolminConanShin/WayKnower#readme",
+  "homepage": "https://github.com/koojongyoon/Promiser#readme",
   "devDependencies": {
     "jasmine": "^2.5.2"
   },
