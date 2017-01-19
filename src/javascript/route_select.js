@@ -103,7 +103,7 @@ function setGeolocation() {
 
 function blinkTaxiMockModal() {
 	modalCallingDialog.modal('open');
-	goThisWayButton.innerHTML = "호출 취소";
+	goThisWayButton.innerHTML = "위치 확인";
 	setTimeout(function(){
 		modalCallingDialog.modal('close');
 		modalCalledDialog.modal('open');
