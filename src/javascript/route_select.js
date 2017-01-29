@@ -114,7 +114,7 @@ function blinkTaxiMockModal() {
 		document.querySelectorAll(".go-away").forEach(function(component) {
 			hideComponent(component);
 		});
-		showComponent(shareButton);
+		//showComponent(shareButton);
 		showComponent(currentPositionButton);
 	}, 	4000);
 };
@@ -134,6 +134,7 @@ function findCurrentLocation() {
 }
 
 function activateKakao(){
+	console.log('active kakap link')
 	var groupKey = getGuid();
 	Kakao.init('3b1c9bd1870f46083d79ba8115f7f304');
 	Kakao.Link.createTalkLinkButton({
