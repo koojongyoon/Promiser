@@ -16,7 +16,7 @@ function recommended_path_service_callback(data) {
 		},
 	};
 	var directionsRenderer = new olleh.maps.DirectionsRenderer(directionsRendererOptions);
-	setRouteDirectionDetails(recommended_direction_result);
+	//setRouteDirectionDetails(recommended_direction_result);
 	directionsRenderer.setMap(map);
 
 	boundList = getBoundsArray(recommended_direction_result);
@@ -39,11 +39,10 @@ function setRouteDirectionDetails(directionsResult) {
 	var distance = getDistance(directionsResult);
 	var fee = getFee(directionsResult);
 
-	routeDirectionListBox.textContent = displayArray;
-	routeDirectionDetails.querySelector("#duration").textContent = duration;
-	routeDirectionDetails.querySelector("#distance").textContent = distance;
-	routeDirectionDetails.querySelector("#fee").textContent = fee;
-	-->
+	//routeDirectionListBox.textContent = displayArray;
+	//routeDirectionDetails.querySelector("#duration").textContent = duration;
+	//routeDirectionDetails.querySelector("#distance").textContent = distance;
+	//routeDirectionDetails.querySelector("#fee").textContent = fee;
 }
 
 function getDestinationRouteArray(durationResult) {

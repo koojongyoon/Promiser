@@ -1,6 +1,7 @@
 {
   "projects": {
     "production": "Promiser",
-    "default": "Promiser"
+    "default": "Promiser",
+    "development": "promiser-9e088"
   }
 }
