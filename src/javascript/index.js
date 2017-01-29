@@ -1,11 +1,11 @@
 var validateButton = function() {
 	var departureInput = document.querySelectorAll(".line-size input")[0];
-	if(departureInput.value != "") {
+	if(departureInput.value !== "") {
 		document.querySelector("#search-button").removeAttribute("disabled");
 	} else {
 		document.querySelector("#search-button").setAttribute("disabled","disabled");
 	}
-}
+};
 
 var documentReady = function() {
 	var departureInput = document.querySelectorAll(".line-size input")[0];
@@ -14,9 +14,7 @@ var documentReady = function() {
 		var departureLatitude = departureInput.getAttribute("lat");
 		var departureLongitude =departureInput.getAttribute("lng");
 
-		location.replace("/html/route_select.html?"
-		+ "departure="+ departureInput.value
-		+ "&depLat=" + departureLatitude + "&depLng=" + departureLongitude);
+		location.replace("/html/route_select.html?"+ "departure="+ departureInput.value+ "&depLat=" + departureLatitude + "&depLng=" + departureLongitude);
 	});
 }
 

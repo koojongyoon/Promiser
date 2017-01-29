@@ -137,9 +137,10 @@ function findCurrentLocation() {
 }
 
 function activateKakao(){
-	console.log('active kakap link');
+	console.log('active kakap link1');
 	var groupKey = getGuid();
 	Kakao.init('3b1c9bd1870f46083d79ba8115f7f304');
+	console.log('active kakap link2');
 	Kakao.Link.createTalkLinkButton({
 		container: '#kakao-link-btn',
 		label: '지인의 위치를 확인해주세요!',
@@ -150,8 +151,8 @@ function activateKakao(){
 		},
 		webButton: {
 			text: '내 위치 입력하기',
-			url: window.location.href + '&key=' + groupKey
-			//url: 'www.naver.com'
+			//url: window.location.href + '&key=' + groupKey
+			url: 'www.naver.com'
 		}
 	});
 }

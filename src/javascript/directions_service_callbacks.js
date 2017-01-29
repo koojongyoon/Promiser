@@ -1,8 +1,8 @@
-const SELECTED_ROUTE_COLOR = "#01afaf";
-const DEFAULT_TAXI_FEE = 3000;
+var SELECTED_ROUTE_COLOR = "#01afaf";
+var DEFAULT_TAXI_FEE = 3000;
 var shortest_direction_result, recommended_direction_result, freeway_direction_result;
 var routeDirectionListBox = document.querySelector("#routeDirectionList");
-var routeDirectionDetails = document.querySelector("#routeDirectionDetails")
+var routeDirectionDetails = document.querySelector("#routeDirectionDetails");
 
 function recommended_path_service_callback(data) {
 	recommended_direction_result = directionsService.parseRoute(data);
@@ -27,9 +27,9 @@ function recommended_path_service_callback(data) {
 function getCallbackString(priorityType) {
 	switch(priorityType) {
 		case "3" :
-			return "recommended_path_service_callback"
+			return "recommended_path_service_callback";
 		default :
-			return "traffic_path_service_callback"
+			return "traffic_path_service_callback";
 	}
 }
 
@@ -50,7 +50,7 @@ function getDestinationRouteArray(durationResult) {
 	console.log(durationResult);
 	if(durationResult.result.routes.length > 0) {
 		durationResult.result.routes.forEach(function(route) {
-			if(route.node_name != "" && route.node_name != undefined) {
+			if(route.node_name !== "" && route.node_name !== undefined) {
 				destinationArray.push(route.node_name);
 			}
 		});
