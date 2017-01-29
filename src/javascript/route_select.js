@@ -6,9 +6,9 @@ var currentPosition;
 
 var directionsService = new olleh.maps.DirectionsService('frKMcOKXS*l9iO5g');
 
-const goThisWayButton = document.querySelector(".go-this-way-button");
-const shareButton = document.querySelector(".share-button");
-const currentPositionButton = document.querySelector(".current-location-button");
+var goThisWayButton = document.querySelector(".go-this-way-button");
+var shareButton = document.querySelector(".share-button");
+var currentPositionButton = document.querySelector(".current-location-button");
 
 var modalDialog = $("#modalDialog");
 var modalCallingDialog = $("#modalCallingDialog");
@@ -44,7 +44,7 @@ setTimeout(function(){
 	recommendedRoute();
 }, 	3000);
 
-if(getParameterByName("key") != null) {
+if(getParameterByName("key") !== null) {
 	groupKey = getParameterByName("key");
 	goThisWayButton.click();
 }else {
@@ -60,10 +60,12 @@ function loadSearchPage() {
 }
 
 function goThisWay() {
-	blinkTaxiMockModal();
 	activateKakao();
+	blinkTaxiMockModal();
+
+	/*
 	receiveCoordinatesByKey(groupKey, function(coordinates) {
-        if(marker != undefined){
+        if(marker !== undefined){
             marker.erase();
         }
         var position = new olleh.maps.LatLng(coordinates.latitude, coordinates.longitude);
@@ -76,6 +78,7 @@ function goThisWay() {
         });
         marker.setFlat(true);
     });
+		*/
 }
 
 function setGeolocation() {
@@ -117,7 +120,7 @@ function blinkTaxiMockModal() {
 		//showComponent(shareButton);
 		showComponent(currentPositionButton);
 	}, 	4000);
-};
+}
 
 function hideComponent(component) {
 	component.className += " disappear";
@@ -128,13 +131,13 @@ function showComponent(component) {
 }
 
 function findCurrentLocation() {
-	if(currentPosition != null) {
+	if(currentPosition !== null) {
 		map.setCenter(new olleh.maps.LatLng(currentPosition.y, currentPosition.x));
 	}
 }
 
 function activateKakao(){
-	console.log('active kakap link')
+	console.log('active kakap link');
 	var groupKey = getGuid();
 	Kakao.init('3b1c9bd1870f46083d79ba8115f7f304');
 	Kakao.Link.createTalkLinkButton({
@@ -151,7 +154,7 @@ function activateKakao(){
 			//url: 'www.naver.com'
 		}
 	});
-};
+}
 
 function recommendedRoute() {
 	clearMap();
