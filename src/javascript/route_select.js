@@ -137,15 +137,13 @@ function findCurrentLocation() {
 }
 
 function activateKakao(){
-	console.log('active kakap link1');
 	var groupKey = getGuid();
 	Kakao.init('3b1c9bd1870f46083d79ba8115f7f304');
-	console.log('active kakap link2');
 	Kakao.Link.createTalkLinkButton({
 		container: '#kakao-link-btn',
 		label: '지인의 위치를 확인해주세요!',
 		image: {
-			src: 'https://wayknower.firebaseapp.com/lib/images/share_link.jpeg',
+			src: 'https://promiser-9e088.firebaseapp.com/lib/images/tdkd.png',
 			width: '300',
 			height: '200'
 		},
