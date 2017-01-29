@@ -61,6 +61,7 @@ function loadSearchPage() {
 
 function goThisWay() {
 	blinkTaxiMockModal();
+	activateKakao();
 	receiveCoordinatesByKey(groupKey, function(coordinates) {
         if(marker != undefined){
             marker.erase();
