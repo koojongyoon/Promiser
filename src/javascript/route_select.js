@@ -138,7 +138,10 @@ function findCurrentLocation() {
 
 function activateKakao(){
 	var groupKey = getGuid();
-	Kakao.init('3b1c9bd1870f46083d79ba8115f7f304');
+	Kakao.init('54a4eb964f13441087fefcf7a780a66e');
+	console.log("guid : " + groupKey)
+	console.log("url : " + window.location.href + '&key=' + groupKey);
+	// http://localhost:8080/html/route_select.html?departure=%EB%8C%80%ED%95%9C%E…epLat=35.864678&depLng=128.593341&key=a53bb6e1-4aa7-b20b-e687-022afef9af27
 	Kakao.Link.createTalkLinkButton({
 		container: '#kakao-link-btn',
 		label: '지인의 위치를 확인해주세요!',
@@ -149,15 +152,18 @@ function activateKakao(){
 		},
 		webButton: {
 			text: '내 위치 입력하기',
-			//url: window.location.href + '&key=' + groupKey
-			url: 'www.naver.com'
+			url: window.location.href + '&key=' + groupKey
+			//url: 'www.naver.com'
 		}
 	});
 }
-
+//group key를 생성한 후 link에 접속함 -> 카카오리으에선 redirect dynamic url을 허용하지 않음
+//link에 접속할때 자신 고유의 아이디를 생성하고(카카오 ID가 있는지 확인 필요), 자신의 카카오톡 별명을 가져옴
+//그룹id+카카도id+카카오 별명 + 위도 + 경도를 DB에 넣음
+//생성된 맵에 접근하면서 -> (새로 맵 정보를 만들어야 하는지...?) -> 위의 정보를 맵 상에서 조회함(db에서 그룹키로 셀렉트 한뒤 맵 상 조회)
+//마커에 카카오 별명도 같이 뿌려야 함 (어떻게 할까...?)
 function recommendedRoute() {
 	clearMap();
-	console.log(departure);
 	directionsService.route({
 		origin : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(currentPosition.y, currentPosition.x)),
 		destination : new olleh.maps.UTMK.valueOf(new olleh.maps.LatLng(departure.latitude, departure.longitude)),
