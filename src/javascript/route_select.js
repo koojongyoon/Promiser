@@ -159,7 +159,7 @@ function activateKakao(){
 	});
 	*/
 	Kakao.Navi.start({
-			name: "현대백화점 판교점",
+			name: departure.name,
 			x: departure.latitude,
 			y: departure.longitude,
 			coordType: 'wgs84'
