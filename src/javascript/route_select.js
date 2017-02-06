@@ -160,8 +160,8 @@ function activateKakao(){
 	*/
 	Kakao.Navi.start({
 			name: departure.name,
-			x: Number(departure.latitude),
-			y: Number(departure.longitude),
+			x: Number(departure.longitude),
+			y: Number(departure.latitude),
 			coordType: 'wgs84'
 	});
 
