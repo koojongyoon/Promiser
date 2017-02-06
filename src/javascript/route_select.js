@@ -39,11 +39,11 @@ var map = new olleh.maps.Map('map_div', {
 });
 
 setGeolocation();
-
+/*
 setTimeout(function(){
 	recommendedRoute();
 }, 	3000);
-
+*/
 if(getParameterByName("key") !== null) {
 	groupKey = getParameterByName("key");
 	goThisWayButton.click();
@@ -160,10 +160,17 @@ function activateKakao(){
 	*/
 	Kakao.Navi.start({
 			name: departure.name,
-			x: departure.latitude,
-			y: departure.longitude,
+			x: Number(departure.latitude),
+			y: Number(departure.longitude),
 			coordType: 'wgs84'
 	});
+
+	// Kakao.Navi.start({
+	// 		name: departure.name,
+	// 		x: 37.52172400000001,
+	// 		y: 126.92427099999999,
+	// 		coordType: 'wgs84'
+	// });
 }
 //group key를 생성한 후 link에 접속함 -> 카카오에선 redirect dynamic url을 허용하지 않음
 //link에 접속할때 자신 고유의 아이디를 생성하고(카카오 ID가 있는지 확인 필요), 자신의 카카오톡 별명을 가져옴
