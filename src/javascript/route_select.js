@@ -117,7 +117,6 @@ function blinkTaxiMockModal() {
 		document.querySelectorAll(".go-away").forEach(function(component) {
 			hideComponent(component);
 		});
-		//showComponent(shareButton);
 		showComponent(currentPositionButton);
 	}, 	4000);
 }
