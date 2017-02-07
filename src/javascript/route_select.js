@@ -142,7 +142,7 @@ function activateKakao(){
 	console.log("guid : " + groupKey)
 	console.log("latitude : " + departure.latitude + '&longitude=' + departure.longitude);
 	// http://localhost:8080/html/route_select.html?departure=%EB%8C%80%ED%95%9C%E…epLat=35.864678&depLng=128.593341&key=a53bb6e1-4aa7-b20b-e687-022afef9af27
-	/*
+	console.log('url : ' + window.location.href);
 	Kakao.Link.createTalkLinkButton({
 		container: '#kakao-link-btn',
 		label: '지인의 위치를 확인해주세요!',
@@ -153,24 +153,23 @@ function activateKakao(){
 		},
 		webButton: {
 			text: '내 위치 입력하기',
-			url: window.location.href + '&key=' + groupKey
-			//url: 'www.naver.com'
+			url: window.location.href,
+			execParams : { android : {
+				name: departure.name,
+				groupKey: groupKey,
+				longitude: Number(departure.longitude),
+				latitude: Number(departure.latitude),
+			}}
 		}
 	});
-	*/
+	/*
 	Kakao.Navi.start({
 			name: departure.name,
 			x: Number(departure.longitude),
 			y: Number(departure.latitude),
 			coordType: 'wgs84'
 	});
-
-	// Kakao.Navi.start({
-	// 		name: departure.name,
-	// 		x: 37.52172400000001,
-	// 		y: 126.92427099999999,
-	// 		coordType: 'wgs84'
-	// });
+	*/
 }
 //group key를 생성한 후 link에 접속함 -> 카카오에선 redirect dynamic url을 허용하지 않음
 //link에 접속할때 자신 고유의 아이디를 생성하고(카카오 ID가 있는지 확인 필요), 자신의 카카오톡 별명을 가져옴
